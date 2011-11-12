@@ -1,0 +1,40 @@
+<h1>Регистрация</h1>
+
+<%= form_for @user do |f| %>
+  <% if @user.errors.any? %>
+    <div class="error_messages">
+      <h2>Данные невалидны</h2>
+      <ul>
+        <% for message in @user.errors.full_messages %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <p>
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </p>
+  <p>
+    <%= f.label :password, 'Пароль' %><br />
+    <%= f.password_field :password %>
+  </p>
+  <p>
+    <%= f.label :password_confirmation, 'Пароль для подтверждения' %><br />
+    <%= f.password_field :password_confirmation %>
+  </p>
+  <hr>
+  <p>
+    <%= f.label :name, 'Имя' %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :phone, "Телефон" %><br />
+    <%= f.text_field :phone %>
+  </p>
+  <p>
+    <%= f.label :role, "Роль" %><br />
+    <%= select("user", "role", User::ROLES, {:prompt => 'Выберите роль'}) %>
+  </p>
+  <p class="button"><%= f.submit 'Зарегистрироваться' %></p>
+<% end %>
