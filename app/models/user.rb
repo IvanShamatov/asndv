@@ -1,6 +1,7 @@
 # encoding: utf-8
 class User < ActiveRecord::Base
   ROLES = ['admin', 'agent', 'user']
+  has_many :places
   attr_accessible :name, :role, :phone,:email, :password, :password_confirmation
   attr_accessor :password
   before_save :encrypt_password
@@ -9,16 +10,9 @@ class User < ActiveRecord::Base
   validates_presence_of :password, :on => :create
   validates_presence_of :email, :message => "Укажите email"
   validates_presence_of :name, :message => "Укажите ваше имя"
-  validates :role, :inclusion => { :in => ROLES }
+#  validates :role, :inclusion => { :in => %w(admin agent user) }
   validates_uniqueness_of :email, :message => "Пользователь с таким email уже зарегистрирован"
   validates_uniqueness_of :phone, :message => "Пользователь с таким номером телефона уже зарегистрирован"
-
-  
-  
-
-  
-  def role
-  end
   
   def encrypt_password
     if password.present?

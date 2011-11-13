@@ -1,25 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Asndv</title>
+  <title>Тестовое задание</title>
   <%= stylesheet_link_tag :all %>
   <%= javascript_include_tag :defaults %>
   <%= csrf_meta_tag %>
+  <%= yield :head %>
+  <style>
+    html {width:100%;height:100%;padding:0px;margin:0px;}
+    body {width:100%;height:100%;padding:0px;margin:0px;}
+    .gmaps4rails_map {width:100%;height:100%;padding:0px;margin:0px;}
+    .map_container {width:99.999%;height:80%;padding:0px;margin:0px;}
+  </style>
 </head>
 <body>
 <% flash.each do |name, msg| %>
     <%= content_tag :div, msg, :id => "flash#{name}" %>
   <% end %>
   <div id="user_nav">
+  <%= link_to "Главная", root_url%> 
   <% if current_user %>
     Вы вошли как <%= current_user.name %>, 
     <%= link_to "не вы?", logout_path %>
+    <%= (link_to "Личный кабинет", me_path) if %w(agent admin).include?(current_user.role)%>
   <% else %>
     <%= link_to "Зарегистрироваться", signup_path %> или 
     <%= link_to "войти", login_path %>
   <% end %>
 </div>
 <%= yield %>
-
+<%= yield :scripts %>
 </body>
 </html>

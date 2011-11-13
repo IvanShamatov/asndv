@@ -3,6 +3,8 @@ Asndv::Application.routes.draw do
   get "login" => "sessions#new", :as => "login"
   get "logout" => "sessions#destroy", :as => "logout"
   get "signup" => "users#new", :as => "signup"
+  get "as_table" => "places#as_table"
+  get "me" => "users#profile"
   resources :users
   resources :sessions
   resources :places
@@ -62,5 +64,5 @@ Asndv::Application.routes.draw do
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
-  # match ':controller(/:action(/:id(.:format)))'
+  #match ':controller(/:action(/:id(.:format)))'
 end

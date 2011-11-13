@@ -1,0 +1,31 @@
+<h1>Все места</h1>
+<%= link_to "Oh, my! Верните карту", root_path %>
+<table border="1px">
+  <tr>
+    <th>Адрес</th>
+    <th>Описание</th>
+    <th>Метро</th>
+    <th>Площадь</th>
+    <th>Кол-во комнат</th>
+    <th>Стоимость</th>
+    <th>Агент</th>
+    
+    
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @places.each do |place| %>
+  <tr>
+    <td><%= place.address %></td>
+    <td><%= place.description %></td>
+    <td><%= place.metro %></td>
+    <td><%= place.size %></td>
+    <td><%= place.num_rooms %></td>
+    <td><%= place.price %></td>
+    <td><%= place.agent_data %></td>
+    <td><%= link_to 'Ред.', edit_place_path(place) %></td>
+    <td><%= link_to 'Удалить', place, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>

@@ -1,0 +1,35 @@
+<h1>Ваши данные</h1>
+
+Имя: <%= @user.name %><br />
+Email: <%= @user.email %><br />
+Тел.: <%= @user.phone %><br />
+<%= link_to 'Удалить', @user, :confirm => 'Are you sure?', :method => :delete %></td>
+<% unless @places.empty?%>
+<h1>Ваши места</h1>
+<table border="1px">
+  <tr>
+    <th>Адрес</th>
+    <th>Описание</th>
+    <th>Метро</th>
+    <th>Площадь</th>
+    <th>Кол-во комнат</th>
+    <th>Стоимость</th>    
+    
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @places.each do |place| %>
+  <tr>
+    <td><%= place.address %></td>
+    <td><%= place.description %></td>
+    <td><%= place.metro %></td>
+    <td><%= place.size %></td>
+    <td><%= place.num_rooms %></td>
+    <td><%= place.price %></td>
+    <td><%= link_to 'Ред.', edit_place_path(place) %></td>
+    <td><%= link_to 'Удалить', place, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+<% end %>

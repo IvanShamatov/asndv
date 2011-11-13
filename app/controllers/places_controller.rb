@@ -1,84 +1,60 @@
 # encoding: utf-8
 class PlacesController < ApplicationController
-  # GET /places
-  # GET /places.xml
-  def index
-    @places = Place.all
+  before_filter :authenticate!, :only => [:new, :edit, :create, :destroy]
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @places }
-    end
+  def as_table
+    @places = Place.all
+  end
+  
+  def index
+    # if params[:search]
+    #   @places = Place.where("address LIKE '%#{params[:address]}%' and metro = '#{params[:metro]}' and num_rooms in #{params[:num_rooms]} and price < '#{params[:price]}'") 
+    # else
+    #   @places = Place.all
+    # end
+    @places = Place.all
+    @gmaps_places = @places.to_gmaps4rails
   end
 
-  # GET /places/1
-  # GET /places/1.xml
   def show
     @place = Place.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @place }
-    end
   end
 
-  # GET /places/new
-  # GET /places/new.xml
   def new
     @place = Place.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @place }
-    end
   end
 
-  # GET /places/1/edit
   def edit
     @place = Place.find(params[:id])
   end
 
-  # POST /places
-  # POST /places.xml
   def create
     @place = Place.new(params[:place])
-
-    respond_to do |format|
-      if @place.save
-        format.html { redirect_to(@place, :notice => 'Place was successfully created.') }
-        format.xml  { render :xml => @place, :status => :created, :location => @place }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @place.errors, :status => :unprocessable_entity }
-      end
+    current_user.places << @place
+    if @place.save
+      redirect_to(@place, :notice => 'Место было добавлено.')
+    else
+      render :action => "new"
     end
   end
 
-  # PUT /places/1
-  # PUT /places/1.xml
   def update
     @place = Place.find(params[:id])
-
-    respond_to do |format|
-      if @place.update_attributes(params[:place])
-        format.html { redirect_to(@place, :notice => 'Place was successfully updated.') }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @place.errors, :status => :unprocessable_entity }
-      end
+    if @place.update_attributes(params[:place])
+      redirect_to(@place, :notice => 'Данные о месте обновились.') 
+    else
+        render :action => "edit" 
     end
   end
 
-  # DELETE /places/1
-  # DELETE /places/1.xml
   def destroy
     @place = Place.find(params[:id])
-    @place.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(places_url) }
-      format.xml  { head :ok }
+    if current_user.role == 'admin' or current_user.places.include?(@place.id)
+      @place.destroy
+      redirect_to(places_url)
+    else
+      redirect_to root_url, :message => "Вы не админ и не агент этого места, нечего вам его и удалять"
     end
   end
+  
 end

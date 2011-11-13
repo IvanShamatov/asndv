@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111112135138) do
+ActiveRecord::Schema.define(:version => 20111113074335) do
 
   create_table "places", :force => true do |t|
     t.string   "address"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(:version => 20111112135138) do
     t.string   "district"
     t.text     "description"
     t.integer  "num_rooms"
+    t.integer  "user_id"
   end
 
   create_table "users", :force => true do |t|

@@ -12,22 +12,32 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :address %><br />
-    <%= f.text_field :address %>
+    <%= f.label :address, "Адрес" %><br />
+    <%= f.text_area :address, :size => '35x5'  %>
   </div>
   <div class="field">
-    <%= f.label :latitude %><br />
-    <%= f.text_field :latitude %>
+    <%= f.label :description, "Описание" %><br />
+    <%= f.text_area :description, :size => '35x5' %>
   </div>
   <div class="field">
-    <%= f.label :longitude %><br />
-    <%= f.text_field :longitude %>
+    <%= f.label :metro, "Ближайшая" %><br />
+    <%= select("place", "metro", Place::METRO, {:prompt => 'станция метро'}) %>
+  </div>  
+  <div class="field">
+    <%= f.label :size, "Площадь помещения" %><br />
+    <%= f.text_field :size %>
   </div>
   <div class="field">
-    <%= f.label :gmaps %><br />
-    <%= f.check_box :gmaps %>
+    <%= f.label :num_rooms, "Количество комнат" %><br />
+    <%= f.text_field :num_rooms %>
   </div>
+  <div class="field">
+    <%= f.label :price, "Стоимость" %><br />
+    <%= f.text_field :price %>
+  </div>
+  
+  
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "НИААРРРРР!!! Поехали" %>
   </div>
 <% end %>
