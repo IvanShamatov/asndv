@@ -1,4 +1,4 @@
-1321219817
+1321224804
 AddColumnsToPlace	/Users/ivansamatov/src/asndv/db/migrate/20111112134358_add_columns_to_place.rb	class AddColumnsToPlace 
 AddUserIdToPlace	/Users/ivansamatov/src/asndv/db/migrate/20111113074335_add_user_id_to_place.rb	class AddUserIdToPlace 
 Application	/Users/ivansamatov/src/asndv/config/application.rb	  class Application 

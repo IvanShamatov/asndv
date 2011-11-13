@@ -1,6 +1,11 @@
 <br />
 <span style="font-size:30px; font-weight:bold;">Поиск</span>
-<%=form_tag("/", :name => "search", :method => :get) do %>
+<%=form_tag("/", :name => 'search', :method => :get) do %>
+  Приблизительный адрес: <%= text_field_tag 'address'%>
+  Станция метро: <%= select 'metro', '', Place::METRO, {:prompt => 'станция метро'}%> 
+  Количество комнат: <%= check_box_tag 'num_rooms[]', '1'%>1<%= check_box_tag 'num_rooms[]', '2'%>2<%= check_box_tag 'num_rooms[]', '3'%>3<%= check_box_tag 'num_rooms[]', '4'%>4<%= check_box_tag 'num_rooms[]', '5'%>5
+  Цена меньше чем: <%= text_field_tag 'price'%>
+  <%=hidden_field_tag 'search', 'true'%>
   <%=submit_tag "Подобрать"%>
 <% end %>
 <br />

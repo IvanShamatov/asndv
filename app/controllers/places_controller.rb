@@ -7,12 +7,16 @@ class PlacesController < ApplicationController
   end
   
   def index
-    # if params[:search]
-    #   @places = Place.where("address LIKE '%#{params[:address]}%' and metro = '#{params[:metro]}' and num_rooms in #{params[:num_rooms]} and price < '#{params[:price]}'") 
-    # else
-    #   @places = Place.all
-    # end
-    @places = Place.all
+    if params[:search]
+      @str = []
+      @str << "address LIKE '%#{params[:address]}%'" unless params['address'].blank?
+      @str << "metro = '#{params[:metro].first}'" unless params['metro'].first.blank?
+      @str << "num_rooms in (#{params[:num_rooms].map{|a| a.to_i}.join(', ')})" unless params['num_rooms'].blank?
+      @str << "price <= #{params[:price]}" unless params['price'].blank?
+      @places = Place.where(@str.join(" and "))
+    else
+      @places = Place.all
+    end
     @gmaps_places = @places.to_gmaps4rails
   end
 
